@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Düsseldorf Japanese Guide</title>
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#1e1e2f">
+  <!-- iOS 用アイコン（任意） -->
+  <link rel="apple-touch-icon" href="icons/icon-192.jpg">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="icons/icon-192.jpg">
-  <style>
+
+ <style>
     * {
       margin: 0;
       padding: 0;
@@ -245,17 +247,6 @@
     .text-muted {
       color: var(--text-muted);
     }
-
-    .install-banner {
-      background-color: var(--primary);
-      color: white;
-      padding: 0.75rem;
-      text-align: center;
-      border-radius: 2rem;
-      margin: 1rem 0;
-      cursor: pointer;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
@@ -284,14 +275,11 @@
 
   <main class="container">
     <div id="mainPage">
-      <div id="installBanner" class="install-banner hidden">
-        📱 アプリをインストールする | Install App | App installieren
-      </div>
-
+      <!-- 上部スポンサー -->
       <div class="sponsor" id="topSponsor">
         <div class="sponsor-row">
-          <a href="http://www.newsdigest.de/newsde/duesseldorf-guide/" target="_blank" id="sponsorTopLink">
-            <img src="https://placehold.co/300x100/ff6b6b/white?text=News+Digest" alt="Sponsor" class="sponsor-img" id="sponsorTopImg">
+          <a href="#" target="_blank" id="sponsorTopLink">
+            <img src="https://placehold.co/200x80?text=Your+Logo" alt="Sponsor" class="sponsor-img" id="sponsorTopImg">
             <div data-i18n="sponsor_placeholder">Sponsor Area - Click</div>
           </a>
         </div>
@@ -299,10 +287,11 @@
 
       <div id="cardList" class="card-grid"></div>
 
+      <!-- 下部スポンサー -->
       <div class="sponsor" id="bottomSponsor">
         <div class="sponsor-row">
-          <a href="https://www.instagram.com/peutetre1968" target="_blank" id="sponsorBottomLink">
-            <img src="https://placehold.co/300x100/ff6b6b/white?text=Instagram+@peutetre1968" alt="Sponsor" class="sponsor-img" id="sponsorBottomImg">
+          <a href="#" target="_blank" id="sponsorBottomLink">
+            <img src="https://placehold.co/200x80?text=Your+Logo" alt="Sponsor" class="sponsor-img" id="sponsorBottomImg">
             <div data-i18n="sponsor_placeholder">Sponsor Area - Click</div>
           </a>
         </div>
@@ -334,7 +323,6 @@
         back: "Back to List",
         contact: "Contact us",
         sponsor_placeholder: "Sponsor Area - Click",
-        official: "Official Website",
         spots: {}
       },
       de: {
@@ -342,7 +330,6 @@
         back: "Zurück zur Liste",
         contact: "Kontakt",
         sponsor_placeholder: "Sponsorbereich - Klicken",
-        official: "Offizielle Website",
         spots: {}
       },
       ja: {
@@ -350,86 +337,85 @@
         back: "一覧に戻る",
         contact: "お問い合わせ",
         sponsor_placeholder: "スポンサー枠 - クリック",
-        official: "公式サイト",
         spots: {}
       }
     };
 
-    // スポットデータ
+    // 完全な10スポットのデータ（画像URL・公式URLは指定のもの）
     const spotsData = [
       {
         id: 1,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=Little+Tokyo",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgqoTNIdcqhJsLE36bfTFdm4MvywHDBmn0q-AdnJuu9Sr1BBcok3KMNQrV&s=10",
         officialUrl: "https://jaapan.de/duesseldorf-little-tokyo/",
         name: { en: "Little Tokyo (Immermannstraße)", de: "Klein-Tokio (Immermannstraße)", ja: "リトルトーキョー (インマーマン通り)" },
         desc: { en: "Heart of Japanese community with restaurants, shops and supermarkets.", de: "Herz der japanischen Gemeinschaft mit Restaurants, Geschäften und Supermärkten.", ja: "レストラン、ショップ、スーパーが集まる日本人コミュニティの中心。" }
       },
       {
         id: 2,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=Shochiku+Supermarket",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKGFtTpQmeLL2bPsy0lfea18t0Yq7_JdZ45VTncCPwbty58w7ug8WKdfzE&s=10",
         officialUrl: "https://japanplaza-shop.de/en/ueber-uns",
         name: { en: "Shochiku Supermarket", de: "Shochiku Supermarkt", ja: "松竹スーパー" },
         desc: { en: "The largest Japanese grocery store, sake and fresh ingredients.", de: "Der größte japanische Lebensmittelladen, Sake und frische Zutaten.", ja: "最大級の日本食材店、日本酒や生鮮食品も豊富。" }
       },
       {
         id: 3,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=Taiyo+Foods",
-        officialUrl: "https://japanplaza-shop.de/en/fdi-funwari-kaoru-baumkuchen-plain-55g",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShQSIy5yXtVNF3dG66G_yz7NJzZGfa-iaQI8xO9zL4FA&s",
+        officialUrl: "https://www.taiyo-foods.de/",
         name: { en: "Taiyo Foods", de: "Taiyo Foods", ja: "大洋食品" },
         desc: { en: "Japanese & Asian grocery store near Immermannstraße.", de: "Japanischer & asiatischer Supermarkt nahe Immermannstraße.", ja: "インマーマン通り近くの日系・アジア食品店。" }
       },
       {
         id: 4,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=EKO+Haus",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPUnsVk6u0fjY87y-Q84qvkr5V_T37efkzoJbi4__J-W-sQYw9_QNtBZs&s=10",
         officialUrl: "https://eko-haus.de/en/",
         name: { en: "EKŌ-Haus", de: "EKŌ-Haus", ja: "惠光センター" },
         desc: { en: "Japanese cultural center with temple, garden and events.", de: "Japanisches Kulturzentrum mit Tempel, Garten und Veranstaltungen.", ja: "寺院、日本庭園、文化イベントがある日本文化センター。" }
       },
       {
         id: 5,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=Japan+Club",
+        img: "https://jc-duesseldorf.de/wp-content/uploads/%E7%B7%8F%E5%8B%99%E7%AE%A1%E7%90%86%E9%83%A8-1024x1024.jpg",
         officialUrl: "https://jc-duesseldorf.de/ja/",
         name: { en: "Japan Club Düsseldorf", de: "Japan Club Düsseldorf", ja: "日本クラブ" },
         desc: { en: "Networking and social hub for Japanese and German members.", de: "Netzwerk- und Sozialtreff für japanische und deutsche Mitglieder.", ja: "日本人とドイツ人の交流・ネットワーキング拠点。" }
       },
       {
         id: 6,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=DoKomi",
+        img: "https://www.dokomi.de/static/fc/32/28/b5/981afb490578fed067f7c30f2c/2I0A0792.webp?_=1762014297493",
         officialUrl: "https://www.dokomi.de/",
         name: { en: "DoKomi (Anime Convention)", de: "DoKomi (Anime-Convention)", ja: "ドコミ (アニメコンベンション)" },
         desc: { en: "Germany's largest anime & manga convention, held annually.", de: "Deutschlands größte Anime- und Manga-Convention, jährlich.", ja: "ドイツ最大級のアニメ・マンガコンベンション、年次開催。" }
       },
       {
         id: 7,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=Japan+Day",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM70a4lXyJuQS2C9DharS2UhEjaTO8ydGFXPg51nAw82Xt1Rcgv6wOFwg&s=10",
         officialUrl: "https://www.visitduesseldorf.de/en/experience/events/japan-tag-japan-day-dusseldorf-nrw",
         name: { en: "Japan-Tag (Japan Day)", de: "Japan-Tag", ja: "日本デー" },
         desc: { en: "Huge Japanese culture festival with fireworks and cosplay.", de: "Großes japanisches Kulturfest mit Feuerwerk und Cosplay.", ja: "花火やコスプレが楽しめる日本文化の大規模フェス。" }
       },
       {
         id: 8,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=Japanese+School",
+        img: "https://www.expatservicedesk.de/fileadmin/_processed_/a/0/csm_Japanische-Schule-JISDuesseldorf_e611092063.jpg",
         officialUrl: "https://www.jisd.de/",
         name: { en: "Japanese School Düsseldorf", de: "Japanische Schule Düsseldorf", ja: "デュッセルドルフ日本人学校" },
         desc: { en: "Japanese elementary & junior high school following Japanese curriculum.", de: "Japanische Grund- und Mittelschule nach japanischem Lehrplan.", ja: "日本の学習指導要領に基づく小中学校。" }
       },
       {
         id: 9,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=Kinokuniya",
+        img: "https://deeptokyo.jp/wp-content/uploads/2026/01/KI_5345_ok.jpg",
         officialUrl: "https://www.kinokuniya.com/",
         name: { en: "Kinokuniya Bookstore", de: "Kinokuniya Buchhandlung", ja: "紀伊國屋書店" },
         desc: { en: "Japanese books, manga, magazines and stationery.", de: "Japanische Bücher, Manga, Zeitschriften und Schreibwaren.", ja: "日本語書籍、マンガ、雑誌、文房具。" }
       },
       {
         id: 10,
-        img: "https://placehold.co/600x400/ff6b6b/white?text=Restaurant+Nagaya",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREjFpkU2X3os5NtqJxEbgKytbGk8XLHkXuFGBihhkGDcVBI2dwjAXJLak&s=10",
         officialUrl: "https://www.visitduesseldorf.de/en/poi/detail/nagaya-chang-wu-4909d4aae5",
         name: { en: "Restaurant Nagaya", de: "Restaurant Nagaya", ja: "レストラン ナガヤ" },
         desc: { en: "Michelin-starred Japanese fine dining.", de: "Japanische Gourmetküche mit Michelin-Stern.", ja: "ミシュラン星付きの高級日本料理店。" }
       }
     ];
 
-    // 各言語の説明を追加
+    // 各言語の説明をspotsに追加
     spotsData.forEach(spot => {
       translations.en.spots[spot.id] = { name: spot.name.en, desc: spot.desc.en };
       translations.de.spots[spot.id] = { name: spot.name.de, desc: spot.desc.de };
@@ -438,32 +424,12 @@
 
     let currentLang = "en";
     let currentTheme = "dark";
-    let deferredPrompt = null;
 
     const mainPage = document.getElementById("mainPage");
     const detailPage = document.getElementById("detailPage");
     const cardContainer = document.getElementById("cardList");
     const detailContent = document.getElementById("detailContent");
     const backBtn = document.getElementById("backButton");
-    const installBanner = document.getElementById("installBanner");
-
-    // インストールプロンプトの処理
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBanner.classList.remove('hidden');
-    });
-
-    installBanner.addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          installBanner.classList.add('hidden');
-        }
-        deferredPrompt = null;
-      }
-    });
 
     function applyLanguage() {
       document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -517,7 +483,7 @@
         <img src="${spot.img}" alt="${nameText}" class="detail-img">
         <h2>${nameText}</h2>
         <p>${descText}</p>
-        <a href="${spot.officialUrl}" target="_blank" rel="noopener" class="official-link">🔗 ${translations[currentLang].official}</a>
+        <a href="${spot.officialUrl}" target="_blank" rel="noopener" class="official-link">🔗 ${translations[currentLang].app_title === "🇯🇵 Düsseldorf Japanese Guide" ? "Official Website" : (currentLang === "de" ? "Offizielle Website" : "公式サイト")}</a>
       `;
       mainPage.classList.add("hidden");
       detailPage.classList.remove("hidden");
@@ -541,6 +507,18 @@
         document.body.classList.add("light");
         localStorage.setItem("theme", "light");
       }
+    }
+
+    function initSponsors() {
+      const topLink = document.getElementById("sponsorTopLink");
+      const topImg = document.getElementById("sponsorTopImg");
+      topLink.href = "http://www.newsdigest.de/newsde/duesseldorf-guide/";
+      topImg.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4ES7yNuBDuYbwO20QoZrtZCbtLJq1zGs9JsT22xHIeNigUamId6TCERRF&s=10";
+
+      const bottomLink = document.getElementById("sponsorBottomLink");
+      const bottomImg = document.getElementById("sponsorBottomImg");
+      bottomLink.href = "https://www.instagram.com/peutetre1968?igsh=MWM0MnkwbnVjMThnNg==";
+      bottomImg.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIxPMgrfgop4kKM6QV3w8ZVxrUCs-uHQ239aegE_0ZrQ&s";
     }
 
     document.querySelectorAll("[data-lang]").forEach(btn => {
@@ -571,17 +549,16 @@
       const savedTheme = localStorage.getItem("theme");
       if (savedTheme === "light") setTheme("light");
       else setTheme("dark");
+      initSponsors();
       applyLanguage();
     }
     init();
 
-    // Service Worker 登録
+    // Service Worker 登録（PWA対応）
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('SW registered:', reg))
-          .catch(err => console.log('SW registration failed:', err));
-      });
+      navigator.serviceWorker.register('sw.js', { scope: '/' })
+        .then(reg => console.log('SW registered:', reg))
+        .catch(err => console.log('SW registration failed:', err));
     }
   </script>
 </body>
