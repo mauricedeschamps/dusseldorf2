@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Düsseldorf Japanese Guide</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e1e2f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/icon-192.jpg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    :root {
+      --bg: #121212;
+      --surface: #1e1e2f;
+      --card: #2a2a3a;
+      --text: #eeeeee;
+      --text-muted: #aaaaaa;
+      --border: #3a3a4a;
+      --primary: #ff6b6b;
+      --primary-hover: #ff5252;
+      --sponsor-bg: #2a2a3a;
+    }
+
+    body.light {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --card: #ffffff;
+      --text: #222222;
+      --text-muted: #555555;
+      --border: #dddddd;
+      --primary: #e63946;
+      --primary-hover: #c1121f;
+      --sponsor-bg: #f0f0f0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header, footer {
+      background-color: var(--surface);
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      border-bottom: none;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      width: 100%;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 2rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .lang-btn {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .lang-btn.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .sponsor {
+      background-color: var(--sponsor-bg);
+      border: 1px dashed var(--border);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    .sponsor a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .sponsor-img {
+      max-width: 100%;
+      height: auto;
+      max-height: 80px;
+      margin-bottom: 0.5rem;
+    }
+
+    .sponsor-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .card {
+      background-color: var(--card);
+      border-radius: 1rem;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.1s ease;
+      border: 1px solid var(--border);
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background-color: var(--border);
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-view {
+      background-color: var(--surface);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .detail-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .back-btn {
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .official-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .map-container {
+      margin: 2rem 0;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    iframe {
+      width: 100%;
+      height: 350px;
+      border: 0;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .text-muted {
+      color: var(--text-muted);
+    }
+
+    .install-banner {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.75rem;
+      text-align: center;
+      border-radius: 2rem;
+      margin: 1rem 0;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" style="padding:0 1rem;">
+      <div class="header-content">
+        <div class="header-row">
+          <h1 data-i18n="app_title">🇯🇵 Düsseldorf Japanese Guide</h1>
+        </div>
+        <div class="header-row">
+          <div class="controls">
+            <button id="darkModeBtn" title="Dark Mode">🌙 Dark</button>
+            <button id="lightModeBtn" title="Light Mode">☀️ Clear</button>
+          </div>
+        </div>
+        <div class="header-row">
+          <div class="controls">
+            <button data-lang="en" class="lang-btn active">🇬🇧 English</button>
+            <button data-lang="de" class="lang-btn">🇩🇪 Deutsch</button>
+            <button data-lang="ja" class="lang-btn">🇯🇵 日本語</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="mainPage">
+      <div id="installBanner" class="install-banner hidden">
+        📱 アプリをインストールする | Install App | App installieren
+      </div>
+
+      <div class="sponsor" id="topSponsor">
+        <div class="sponsor-row">
+          <a href="http://www.newsdigest.de/newsde/duesseldorf-guide/" target="_blank" id="sponsorTopLink">
+            <img src="https://placehold.co/300x100/ff6b6b/white?text=News+Digest" alt="Sponsor" class="sponsor-img" id="sponsorTopImg">
+            <div data-i18n="sponsor_placeholder">Sponsor Area - Click</div>
+          </a>
+        </div>
+      </div>
+
+      <div id="cardList" class="card-grid"></div>
+
+      <div class="sponsor" id="bottomSponsor">
+        <div class="sponsor-row">
+          <a href="https://www.instagram.com/peutetre1968" target="_blank" id="sponsorBottomLink">
+            <img src="https://placehold.co/300x100/ff6b6b/white?text=Instagram+@peutetre1968" alt="Sponsor" class="sponsor-img" id="sponsorBottomImg">
+            <div data-i18n="sponsor_placeholder">Sponsor Area - Click</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2490.206737518098!2d6.786815476804632!3d51.22506142715564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8ca6f0c9b9c8b%3A0x4b2f5c7e3a6d8f9e!2sImmermannstra%C3%9Fe%2C%2040210%20D%C3%BCsseldorf!5e0!3m2!1sen!2sde!4v1712345678901!5m2!1sen!2sde" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+
+    <div id="detailPage" class="hidden">
+      <button id="backButton" class="back-btn">← <span data-i18n="back">Back</span></button>
+      <div id="detailContent" class="detail-view"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <span data-i18n="contact">Contact us</span><br>
+      <a href="mailto:mementomorikatsu@gmail.com">mementomorikatsu@gmail.com</a>
+    </p>
+  </footer>
+
+  <script>
+    // ---------- 多言語データ ----------
+    const translations = {
+      en: {
+        app_title: "🇯🇵 Düsseldorf Japanese Guide",
+        back: "Back to List",
+        contact: "Contact us",
+        sponsor_placeholder: "Sponsor Area - Click",
+        official: "Official Website",
+        spots: {}
+      },
+      de: {
+        app_title: "🇯🇵 Düsseldorf Japanischer Führer",
+        back: "Zurück zur Liste",
+        contact: "Kontakt",
+        sponsor_placeholder: "Sponsorbereich - Klicken",
+        official: "Offizielle Website",
+        spots: {}
+      },
+      ja: {
+        app_title: "🇯🇵 デュッセルドルフ ジャパニーズガイド",
+        back: "一覧に戻る",
+        contact: "お問い合わせ",
+        sponsor_placeholder: "スポンサー枠 - クリック",
+        official: "公式サイト",
+        spots: {}
+      }
+    };
+
+    // スポットデータ
+    const spotsData = [
+      {
+        id: 1,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=Little+Tokyo",
+        officialUrl: "https://jaapan.de/duesseldorf-little-tokyo/",
+        name: { en: "Little Tokyo (Immermannstraße)", de: "Klein-Tokio (Immermannstraße)", ja: "リトルトーキョー (インマーマン通り)" },
+        desc: { en: "Heart of Japanese community with restaurants, shops and supermarkets.", de: "Herz der japanischen Gemeinschaft mit Restaurants, Geschäften und Supermärkten.", ja: "レストラン、ショップ、スーパーが集まる日本人コミュニティの中心。" }
+      },
+      {
+        id: 2,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=Shochiku+Supermarket",
+        officialUrl: "https://japanplaza-shop.de/en/ueber-uns",
+        name: { en: "Shochiku Supermarket", de: "Shochiku Supermarkt", ja: "松竹スーパー" },
+        desc: { en: "The largest Japanese grocery store, sake and fresh ingredients.", de: "Der größte japanische Lebensmittelladen, Sake und frische Zutaten.", ja: "最大級の日本食材店、日本酒や生鮮食品も豊富。" }
+      },
+      {
+        id: 3,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=Taiyo+Foods",
+        officialUrl: "https://www.taiyo-foods.de/",
+        name: { en: "Taiyo Foods", de: "Taiyo Foods", ja: "大洋食品" },
+        desc: { en: "Japanese & Asian grocery store near Immermannstraße.", de: "Japanischer & asiatischer Supermarkt nahe Immermannstraße.", ja: "インマーマン通り近くの日系・アジア食品店。" }
+      },
+      {
+        id: 4,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=EKO+Haus",
+        officialUrl: "https://eko-haus.de/en/",
+        name: { en: "EKŌ-Haus", de: "EKŌ-Haus", ja: "惠光センター" },
+        desc: { en: "Japanese cultural center with temple, garden and events.", de: "Japanisches Kulturzentrum mit Tempel, Garten und Veranstaltungen.", ja: "寺院、日本庭園、文化イベントがある日本文化センター。" }
+      },
+      {
+        id: 5,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=Japan+Club",
+        officialUrl: "https://jc-duesseldorf.de/ja/",
+        name: { en: "Japan Club Düsseldorf", de: "Japan Club Düsseldorf", ja: "日本クラブ" },
+        desc: { en: "Networking and social hub for Japanese and German members.", de: "Netzwerk- und Sozialtreff für japanische und deutsche Mitglieder.", ja: "日本人とドイツ人の交流・ネットワーキング拠点。" }
+      },
+      {
+        id: 6,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=DoKomi",
+        officialUrl: "https://www.dokomi.de/",
+        name: { en: "DoKomi (Anime Convention)", de: "DoKomi (Anime-Convention)", ja: "ドコミ (アニメコンベンション)" },
+        desc: { en: "Germany's largest anime & manga convention, held annually.", de: "Deutschlands größte Anime- und Manga-Convention, jährlich.", ja: "ドイツ最大級のアニメ・マンガコンベンション、年次開催。" }
+      },
+      {
+        id: 7,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=Japan+Day",
+        officialUrl: "https://www.visitduesseldorf.de/en/experience/events/japan-tag-japan-day-dusseldorf-nrw",
+        name: { en: "Japan-Tag (Japan Day)", de: "Japan-Tag", ja: "日本デー" },
+        desc: { en: "Huge Japanese culture festival with fireworks and cosplay.", de: "Großes japanisches Kulturfest mit Feuerwerk und Cosplay.", ja: "花火やコスプレが楽しめる日本文化の大規模フェス。" }
+      },
+      {
+        id: 8,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=Japanese+School",
+        officialUrl: "https://www.jisd.de/",
+        name: { en: "Japanese School Düsseldorf", de: "Japanische Schule Düsseldorf", ja: "デュッセルドルフ日本人学校" },
+        desc: { en: "Japanese elementary & junior high school following Japanese curriculum.", de: "Japanische Grund- und Mittelschule nach japanischem Lehrplan.", ja: "日本の学習指導要領に基づく小中学校。" }
+      },
+      {
+        id: 9,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=Kinokuniya",
+        officialUrl: "https://www.kinokuniya.com/",
+        name: { en: "Kinokuniya Bookstore", de: "Kinokuniya Buchhandlung", ja: "紀伊國屋書店" },
+        desc: { en: "Japanese books, manga, magazines and stationery.", de: "Japanische Bücher, Manga, Zeitschriften und Schreibwaren.", ja: "日本語書籍、マンガ、雑誌、文房具。" }
+      },
+      {
+        id: 10,
+        img: "https://placehold.co/600x400/ff6b6b/white?text=Restaurant+Nagaya",
+        officialUrl: "https://www.visitduesseldorf.de/en/poi/detail/nagaya-chang-wu-4909d4aae5",
+        name: { en: "Restaurant Nagaya", de: "Restaurant Nagaya", ja: "レストラン ナガヤ" },
+        desc: { en: "Michelin-starred Japanese fine dining.", de: "Japanische Gourmetküche mit Michelin-Stern.", ja: "ミシュラン星付きの高級日本料理店。" }
+      }
+    ];
+
+    // 各言語の説明を追加
+    spotsData.forEach(spot => {
+      translations.en.spots[spot.id] = { name: spot.name.en, desc: spot.desc.en };
+      translations.de.spots[spot.id] = { name: spot.name.de, desc: spot.desc.de };
+      translations.ja.spots[spot.id] = { name: spot.name.ja, desc: spot.desc.ja };
+    });
+
+    let currentLang = "en";
+    let currentTheme = "dark";
+    let deferredPrompt = null;
+
+    const mainPage = document.getElementById("mainPage");
+    const detailPage = document.getElementById("detailPage");
+    const cardContainer = document.getElementById("cardList");
+    const detailContent = document.getElementById("detailContent");
+    const backBtn = document.getElementById("backButton");
+    const installBanner = document.getElementById("installBanner");
+
+    // インストールプロンプトの処理
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBanner.classList.remove('hidden');
+    });
+
+    installBanner.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBanner.classList.add('hidden');
+        }
+        deferredPrompt = null;
+      }
+    });
+
+    function applyLanguage() {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[currentLang][key]) {
+          if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+            el.placeholder = translations[currentLang][key];
+          } else {
+            el.innerText = translations[currentLang][key];
+          }
+        }
+      });
+      document.querySelector("h1").innerText = translations[currentLang].app_title;
+      renderCardList();
+      if (!detailPage.classList.contains("hidden")) {
+        const currentDetailId = detailPage.getAttribute("data-detail-id");
+        if (currentDetailId) showDetail(parseInt(currentDetailId));
+      }
+    }
+
+    function renderCardList() {
+      cardContainer.innerHTML = "";
+      spotsData.forEach(spot => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.setAttribute("data-id", spot.id);
+        const img = document.createElement("img");
+        img.src = spot.img;
+        img.alt = translations[currentLang].spots[spot.id]?.name || spot.name.en;
+        img.className = "card-img";
+        const contentDiv = document.createElement("div");
+        contentDiv.className = "card-content";
+        const title = document.createElement("div");
+        title.className = "card-title";
+        title.innerText = translations[currentLang].spots[spot.id]?.name || spot.name.en;
+        contentDiv.appendChild(title);
+        card.appendChild(img);
+        card.appendChild(contentDiv);
+        card.addEventListener("click", () => showDetail(spot.id));
+        cardContainer.appendChild(card);
+      });
+    }
+
+    function showDetail(id) {
+      const spot = spotsData.find(s => s.id === id);
+      if (!spot) return;
+      const langData = translations[currentLang].spots[id];
+      const nameText = langData?.name || spot.name.en;
+      const descText = langData?.desc || spot.desc.en;
+      detailContent.innerHTML = `
+        <img src="${spot.img}" alt="${nameText}" class="detail-img">
+        <h2>${nameText}</h2>
+        <p>${descText}</p>
+        <a href="${spot.officialUrl}" target="_blank" rel="noopener" class="official-link">🔗 ${translations[currentLang].official}</a>
+      `;
+      mainPage.classList.add("hidden");
+      detailPage.classList.remove("hidden");
+      detailPage.setAttribute("data-detail-id", id);
+      window.scrollTo(0, 0);
+    }
+
+    function backToList() {
+      mainPage.classList.remove("hidden");
+      detailPage.classList.add("hidden");
+      detailPage.removeAttribute("data-detail-id");
+      window.scrollTo(0, 0);
+    }
+
+    function setTheme(theme) {
+      currentTheme = theme;
+      if (theme === "dark") {
+        document.body.classList.remove("light");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.body.classList.add("light");
+        localStorage.setItem("theme", "light");
+      }
+    }
+
+    document.querySelectorAll("[data-lang]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        document.querySelectorAll("[data-lang]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentLang = btn.getAttribute("data-lang");
+        localStorage.setItem("language", currentLang);
+        applyLanguage();
+      });
+    });
+
+    document.getElementById("darkModeBtn").addEventListener("click", () => setTheme("dark"));
+    document.getElementById("lightModeBtn").addEventListener("click", () => setTheme("light"));
+    backBtn.addEventListener("click", backToList);
+
+    function init() {
+      const savedLang = localStorage.getItem("language");
+      if (savedLang && translations[savedLang]) {
+        currentLang = savedLang;
+        document.querySelector(`[data-lang="${savedLang}"]`).classList.add("active");
+        document.querySelectorAll("[data-lang]").forEach(btn => {
+          if (btn.getAttribute("data-lang") !== savedLang) btn.classList.remove("active");
+        });
+      } else {
+        currentLang = "en";
+      }
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") setTheme("light");
+      else setTheme("dark");
+      applyLanguage();
+    }
+    init();
+
+    // Service Worker 登録
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('SW registered:', reg))
+          .catch(err => console.log('SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
